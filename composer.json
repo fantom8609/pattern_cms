@@ -1,0 +1,16 @@
+{
+    "name": "denis/www",
+    "authors": [
+        {
+            "name": "den",
+            "email": "den.shabanov2015@yandex.ru"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Engine\\": "engine",
+            "Engine\\DI\\": "engine/DI"
+        }
+    }
+}
