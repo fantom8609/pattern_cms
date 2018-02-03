@@ -2,16 +2,18 @@
 
 namespace Engine;
 
-
+//данный класс запускает все приложение
 class Cms
 {
     private $di;
 
     private $router;
 
+    //аргумент di созержит все зависимости
     public function __construct($di)
     {
         $this->di = $di;
+        //из ди контейнера берем зависимость-роутер(объект) в переменную
         $this->router = $this->di->get('router');
     }
 
@@ -28,7 +30,7 @@ class Cms
         $this->router->add('home','/','HomeController:index');
         $this->router->add('product','/product','ProductController:index');
         echo "<pre>";
-        print_r ($this->di);
+        print_r ($this->router);
         echo "</pre>";
 
     }

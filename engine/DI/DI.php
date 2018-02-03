@@ -10,19 +10,21 @@ class DI {
     /**
      * @var array
      */
+    //сюда мы будем сохранять зависимости и получать их
     private $container = [];
 
-    /**
+    /**с помощью этой функции мы будем добавлять зависимости в контейнер
      * @param $key
      * @param $value
      * @return $this
      */
     public function set($key, $value) {
+        //записываем новый элемент в массив
         $this->container[$key] = $value;
         return $this;
     }
 
-    /**
+    /**возвращает какую то зависимость по ключу
      * @param $key
      * @return bool
      */
@@ -30,7 +32,7 @@ class DI {
         return $this->has($key);
     }
 
-    /**
+    /**проверяет есть ли данный ключ в ди контейнере
      * @param $key
      * @return mixed|null
      */

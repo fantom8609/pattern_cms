@@ -9,6 +9,7 @@ use Engine\Core\Database\Connection;
 class Provider extends AbstractProvider
 {
 
+    //и имеем доступ к ди у класса предка
     public $serviceName = "db";
 
 
@@ -21,11 +22,6 @@ class Provider extends AbstractProvider
 
         //добавляем в ди контейнер новый сервис
         $this->di->set($this->serviceName, $db);
-
-
-
-
-
 
     }
 
