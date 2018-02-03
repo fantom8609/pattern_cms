@@ -12,8 +12,19 @@ try {
 
 
     //устанавливаем зависимости
-    $di->set('test', ['db' => 'db_object']);
-    $di->set('test2', ['mail' => 'mail_object']);
+    /*$di->set('test', ['db' => 'db_object']);
+    $di->set('test2', ['mail' => 'mail_object']);*/
+
+    //подключаем массив с сервисами
+    $services = require __DIR__ . '/Config/Service.php';
+
+    //проходим по массиву из конфига $service это имя класса и создаем экземпляры
+    foreach ($services as $service) {
+        $provider = new $service($di);
+        //после каждого прохода цикла у нас создается экземпляр сервиса
+        //инициализируем сервис
+        $provider->init();
+    }
 
     $cms = new Cms($di);
 
