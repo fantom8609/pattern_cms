@@ -3,6 +3,8 @@
 namespace Engine\Core\Router;
 
 
+use Engine\Core\Router\UrlDispatcher;
+
 class Router
 {
     /**
@@ -18,6 +20,7 @@ class Router
      * @var
      */
     private $dispatcher;
+
 //в переменную хост будем записывать параметр,который передан в конструктор
     public function __construct($host)
     {
@@ -30,7 +33,8 @@ class Router
      * @param $controller
      * @param string $method
      */
-    public function add($key, $pattern, $controller, $method = "GET") {
+    public function add($key, $pattern, $controller, $method = "GET")
+    {
         $this->routes[$key] = [
             'pattern' => $pattern,
             'controller' => $controller,
@@ -38,16 +42,35 @@ class Router
         ];
     }
 
-    public function dispatch($method, $uri) {
-
+    /**
+     * @param $method
+     * @param $uri
+     * @return \Engine\Service\Router\DispatchedRoute
+     */
+    public function dispatch($method, $uri)
+    {
+//возвращается объект в котором зарегистрированы наши роуты
+        return $this->getDispatcher()->dispatch($method, $uri);
     }
 
-    public function getDispatcher () {
+    /**
+     * @return UrlDispatcher
+     */
+    public function getDispatcher()
+    {
 
-        if($this->dispatcher == null) {
+        if ($this->dispatcher == null) {
 
+            $this->dispatcher = new UrlDispatcher();
+
+//проходимся по нашим роутам
+            foreach ($this->routes as $route) {
+
+//регистрируем роуты
+                $this->dispatcher->register($route['method'], $route['pattern'], $route['controller']);
+            }
         }
-
+        //возвращается объект в котором зарегистрированы наши роуты
         return $this->dispatcher;
     }
 

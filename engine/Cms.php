@@ -1,8 +1,10 @@
 <?php
 
 namespace Engine;
+use Engine\Helper\Common;
 
 //данный класс запускает все приложение
+
 class Cms
 {
     private $di;
@@ -28,10 +30,25 @@ class Cms
 
         //добавление маршрутов в роут
         $this->router->add('home','/','HomeController:index');
-        $this->router->add('product','/product','ProductController:index');
+        $this->router->add('product','/product/12','ProductController:index');
+
+        /*
         echo "<pre>";
         print_r ($this->router);
+        echo "</pre>";*/
+
+        $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUri());
+        /*echo "<pre>";
+        print_r($_SERVER);
+        echo "</pre>";*/
+
+        //echo Common::getMethod();
+
+        //print Common::getPathUri();
+        echo "<pre>";
+        print_r($routerDispatch);
         echo "</pre>";
+
 
     }
 
