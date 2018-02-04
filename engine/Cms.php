@@ -1,6 +1,7 @@
 <?php
 
 namespace Engine;
+
 use Engine\Helper\Common;
 
 //данный класс запускает все приложение
@@ -29,6 +30,7 @@ class Cms
 
 
         //добавление маршрутов в роут
+        //затем нужно будет разбить контроллер и метод контроллера
         $this->router->add('home','/','HomeController:index');
         $this->router->add('product','/product/12','ProductController:index');
 
@@ -38,18 +40,17 @@ class Cms
         echo "</pre>";*/
 
         $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUri());
-        /*echo "<pre>";
-        print_r($_SERVER);
-        echo "</pre>";*/
 
-        //echo Common::getMethod();
+        list($class, $action) = explode(':', $routerDispatch->getController(), 2);
 
-        //print Common::getPathUri();
+        $controller = '\\Cms\\Controller\\' . $class;
+
+        call_user_func_array([new $controller($this->di), $action], $routerDispatch->getParameters());
+
+       /* print_r($class);
         echo "<pre>";
-        print_r($routerDispatch);
-        echo "</pre>";
-
-
+        print_r($action);
+        echo "</pre>";*/
     }
 
 }
